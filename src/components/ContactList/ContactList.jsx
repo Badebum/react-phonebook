@@ -1,7 +1,7 @@
 import React from 'react';
-import styles from './TodoList.module.css';
+import styles from './ContactList.module.css';
 
-const ContactList = ({ contact, onDeleteTodo }) => (
+const ContactList = ({ contact, onDeleteContact }) => (
   <ul>
     {contact.map(({ id, name, number }) => (
       <li key={id} className={styles.list}>
@@ -12,7 +12,7 @@ const ContactList = ({ contact, onDeleteTodo }) => (
         <button
           type="button"
           className={styles.button}
-          onClick={() => onDeleteTodo(id)}
+          onClick={() => onDeleteContact(id)}
         >
           delete
         </button>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import shortid from 'shortid';
-import ContactList from './components/ContactList';
-import TodoEditor from './components/TodoEditor';
+import ContactList from './components/ContactList/ContactList';
+import ContactEditor from './components/ContactEditor';
 import Filter from './components/Filter';
 
 class App extends Component {
@@ -15,21 +15,21 @@ class App extends Component {
     filter: '',
   };
 
-  addTodo = (name, number) => {
-    const todo = {
+  addContact = (name, number) => {
+    const newContact = {
       id: shortid.generate(),
       name,
       number,
     };
 
     this.setState(({ contact }) => ({
-      contact: [todo, ...contact],
+      contact: [newContact, ...contact],
     }));
   };
 
-  deleteTodo = todoId => {
+  deleteContact = contactId => {
     this.setState(prevState => ({
-      contact: prevState.contact.filter(todo => todo.id !== todoId),
+      contact: prevState.contact.filter(cont => cont.id !== contactId),
     }));
   };
 
@@ -55,7 +55,7 @@ class App extends Component {
     return (
       <>
         <h1>Phonebook</h1>
-        <TodoEditor onSubmit={this.addTodo} />
+        <ContactEditor onSubmit={this.addContact} />
 
         <h2>Contacts</h2>
 
@@ -63,8 +63,7 @@ class App extends Component {
 
         <ContactList
           contact={visibleContact}
-          onDeleteTodo={this.deleteTodo}
-          onToggleCompleted={this.toggleCompleted}
+          onDeleteTodo={this.deleteContact}
         />
       </>
     );

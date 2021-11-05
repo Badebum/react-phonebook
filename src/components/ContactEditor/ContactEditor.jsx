@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class TodoEditor extends Component {
+class ContactEditor extends Component {
   state = {
     message: ' ',
     number: ' ',
@@ -44,4 +44,4 @@ class TodoEditor extends Component {
   }
 }
 
-export default TodoEditor;
+export default ContactEditor;

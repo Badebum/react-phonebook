@@ -1,8 +1,9 @@
 import React from 'react';
+import styles from './Filter.module.css';
 
 const Filter = ({ value, onChange }) => {
   return (
-    <label>
+    <label className={styles.titel}>
       Search
       <input
         type="text"
@@ -10,6 +11,7 @@ const Filter = ({ value, onChange }) => {
         onChange={onChange}
         pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
         required
+        className={styles.input}
       />
     </label>
   );

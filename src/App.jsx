@@ -3,6 +3,7 @@ import shortid from 'shortid';
 import ContactList from './components/ContactList/ContactList';
 import ContactEditor from './components/ContactEditor';
 import Filter from './components/Filter';
+import styles from './App.module.css';
 
 class App extends Component {
   state = {
@@ -54,17 +55,19 @@ class App extends Component {
 
     return (
       <>
-        <h1>Phonebook</h1>
-        <ContactEditor onSubmit={this.addContact} />
+        <div className={styles.container}>
+          <h1>Phonebook</h1>
+          <ContactEditor onSubmit={this.addContact} />
 
-        <h2>Contacts</h2>
+          <h2>Contacts</h2>
 
-        <Filter value={filter} onChange={this.changeFilter} />
+          <Filter value={filter} onChange={this.changeFilter} />
 
-        <ContactList
-          contact={visibleContact}
-          onDeleteTodo={this.deleteContact}
-        />
+          <ContactList
+            contact={visibleContact}
+            onDeleteContact={this.deleteContact}
+          />
+        </div>
       </>
     );
   }

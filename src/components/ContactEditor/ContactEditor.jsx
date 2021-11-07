@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import styles from './Contact.module.css';
 
 class ContactEditor extends Component {
   state = {
@@ -21,7 +22,8 @@ class ContactEditor extends Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form onSubmit={this.handleSubmit} className={styles.container}>
+        <p>First name</p>
         <input
           type="text"
           name="message"
@@ -29,7 +31,9 @@ class ContactEditor extends Component {
           onChange={this.handleChange}
           title={this.state.message}
           required
+          className={styles.input}
         />
+        <p>Last name</p>
         <input
           type="tel"
           name="number"
@@ -37,8 +41,12 @@ class ContactEditor extends Component {
           onChange={this.handleChange}
           title={this.state.number}
           required
+          className={styles.input}
         />
-        <button type="submit">save contact</button>
+
+        <button type="submit" className={styles.sub_btn}>
+          save contact
+        </button>
       </form>
     );
   }

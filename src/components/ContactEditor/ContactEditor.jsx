@@ -3,45 +3,55 @@ import styles from './Contact.module.css';
 
 class ContactEditor extends Component {
   state = {
-    message: ' ',
-    number: ' ',
+    name: '',
+    number: '',
   };
 
-  handleChange = e => {
+  handlerChenge = e => {
+    const { name, value } = e.currentTarget;
     this.setState({
-      [e.currentTarget.name]: e.currentTarget.value,
+      [name]: value,
     });
+  };
+
+  reset = () => {
+    this.setState({ name: '', number: '' });
   };
 
   handleSubmit = e => {
     e.preventDefault();
-    this.props.onSubmit(this.state.message, this.state.number);
 
-    this.setState({ message: ' ', number: ' ' });
+    // this.props.onSubmit(this.state.name, this.state.number);
+    this.props.addContact(this.state);
+    this.reset();
   };
 
   render() {
+    const { name, number } = this.state;
+
     return (
       <form onSubmit={this.handleSubmit} className={styles.container}>
         <p>First name</p>
         <input
           type="text"
-          name="message"
-          pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-          onChange={this.handleChange}
-          title={this.state.message}
-          required
           className={styles.input}
+          value={name}
+          onChange={this.handlerChenge}
+          name="name"
+          pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+          title="Имя может состоять только из букв, апострофа, тире и пробелов. Например Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan и т. п."
+          required
         />
         <p>Last name</p>
         <input
           type="tel"
+          className={styles.input}
+          value={number}
+          onChange={this.handlerChenge}
           name="number"
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-          onChange={this.handleChange}
-          title={this.state.number}
+          title="Номер телефона должен состоять цифр и может содержать пробелы, тире, круглые скобки и может начинаться с +"
           required
-          className={styles.input}
         />
 
         <button type="submit" className={styles.sub_btn}>

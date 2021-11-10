@@ -4,6 +4,7 @@ import ContactList from './components/ContactList/ContactList';
 import ContactEditor from './components/ContactEditor';
 import Filter from './components/Filter';
 import styles from './App.module.css';
+import Modal from './components/BackDrop/Modal'
 // import contact from './contact.json';
 
 class App extends Component {
@@ -15,6 +16,7 @@ class App extends Component {
       { id: "id-4", name: "Annie Copeland", number: "227-91-26" },
      ],
     filter: '',
+    showModal: false
   };
 
   componentDidUpdate(prevProps, prevState) {
@@ -31,6 +33,10 @@ class App extends Component {
       this.setState({ contact: parsedContact });
     }
   }
+
+toggleModal = () => {
+  this.setState(({showModal}) => ({showModal: !showModal}))
+}
 
   addContact = (contactFormState) => {
     const { name, number } = contactFormState;
@@ -71,13 +77,21 @@ this.setState((prevState) => ({contact: [contact, ...prevState.contact]}))
   };
 
   render() {
-    const { filter } = this.state;
+    const { filter, showModal } = this.state;
 
     const visibleContact = this.getVisibleContact();
 
     return (
       
         <div className={styles.container}>
+          <button type='button' onClick={this.toggleModal}> Open modal</button>
+          {showModal && <Modal onClose={this.toggleModal}>
+            <h1>thisModalcontent</h1>
+            <button type='button' onClick={this.toggleModal}> Close modal</button>
+         
+            </Modal>
+            }
+          
           <h1>Phonebook</h1>
           <ContactEditor addContact={this.addContact} />
 

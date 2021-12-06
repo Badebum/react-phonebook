@@ -1,11 +1,19 @@
-import { combineReducers, createStore } from 'redux';
-import { composeWithDevTools } from 'redux-devtools-extension';
-import contactsReducer from './contact/contact-reducer';
+import contactReducer from './contact/contact-reducer';
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+import { configureStore } from '@reduxjs/toolkit';
 
-const rootReducer = combineReducers({
-  contacts: contactsReducer,
+const contactPersistConfig = {
+  key: 'contact',
+  storage,
+  blacklist: ['filter'],
+};
+
+export const store = configureStore({
+  reducer: {
+    contacts: persistReducer(contactPersistConfig, contactReducer),
+  },
+  devTools: process.env.NODE_ENV === 'development',
 });
 
-const store = createStore(rootReducer, composeWithDevTools());
-
-export default store;
+export const persistor = persistStore(store);

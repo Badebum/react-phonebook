@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import styles from './Contact.module.css';
+import * as actions from '../../redux/contact/contact-actions';
 
 class ContactEditor extends Component {
   state = {
@@ -22,8 +24,12 @@ class ContactEditor extends Component {
     e.preventDefault();
 
     // this.props.onSubmit(this.state.name, this.state.number);
-    this.props.addContact(this.state);
-    this.reset();
+    if (this.state.name !== '') {
+      this.props.addContact(this.state);
+      this.reset();
+      return;
+    }
+    alert('ERROR');
   };
 
   render() {
@@ -62,4 +68,8 @@ class ContactEditor extends Component {
   }
 }
 
-export default ContactEditor;
+const mapDispatchToProps = dispatch => ({
+  addContact: contactForm => dispatch(actions.addContact(contactForm)),
+});
+
+export default connect(null, mapDispatchToProps)(ContactEditor);
